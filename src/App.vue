@@ -6,15 +6,35 @@
   <!--    id="canvas"-->
   <!--    oncontextmenu="event.preventDefault()"-->
   <!--  ></canvas>-->
-  <button @click="startXash">start</button>
+  <button class="start" @click="startXash">start</button>
 </template>
 
 <script setup lang="ts">
 import { onBeforeMount, ref } from "vue";
 import BrowserFS from "browserfs";
 
-const showCanvas = ref(true);
-const canvas = ref(null);
+// TODO: Resize window, maybe try these?
+// Module["_SDL_OnWindowResized"]
+// Module["_Emscripten_HandleCanvasResize"]
+// Browser.resizeCanvas
+// Module["_SDL_OnWindowResized"]
+//
+
+const canvas = document.getElementById("canvas");
+
+window.addEventListener("resize", () => {
+  console.log("resize");
+  canvas.setAttribute("height", window.innerHeight);
+  canvas.setAttribute("height", window.innerWidth);
+
+  // window.Module["_VID_SetScreenResolution"](
+  //   window.innerWidth,
+  //   window.innerHeight,
+  //   0
+  // );
+  window.Module["_Emscripten_HandleCanvasResize"]();
+});
+
 var statusElement = document.getElementById("status");
 var progressElement = document.getElementById("progress");
 var asyncDialog = document.getElementById("asyncDialog");
@@ -77,7 +97,7 @@ var Module = {
       //text = text.replace(/</g, "&lt;");
       //text = text.replace(/>/g, "&gt;");
       //text = text.replace('\n', '<br>', 'g');
-      //console.log(text);
+      console.log(text);
       if (text) myerrorbuf += text + "\n";
       if (element) {
         if (element.value.length > 65536)
@@ -93,7 +113,7 @@ var Module = {
       text = Array.prototype.slice.call(arguments).join(" ");
     if (0) {
       // XXX disabled for safety typeof dump == 'function') {
-      dump(text + "\n"); // fast, straight to the real console
+      window.dump(text + "\n"); // fast, straight to the real console
     } else {
       if (myerrorbuf.length > 2048)
         myerrorbuf = "some lines skipped\n" + myerrorbuf.substring(512);
@@ -105,20 +125,19 @@ var Module = {
     }
   },
   canvas: (function () {
-    var canvas = document.getElementById("canvas");
     console.log(canvas);
     // As a default initial behavior, pop up an alert when webgl context is lost. To make your
     // application robust, you may want to override this behavior before shipping!
     // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
     // TODO: add this
-    // canvas.value.addEventListener(
-    //   "webglcontextlost",
-    //   function (e) {
-    //     alert("WebGL context lost. You will need to reload the page.");
-    //     e.preventDefault();
-    //   },
-    //   false
-    // );
+    canvas.addEventListener(
+      "webglcontextlost",
+      function (e) {
+        alert("WebGL context lost. You will need to reload the page.");
+        e.preventDefault();
+      },
+      false
+    );
 
     return canvas;
   })(),
@@ -142,7 +161,6 @@ var Module = {
         progressElement.style.width = progressElement.innerHTML =
           "" + progress + "%";
       }
-      // showElement("progress1", !!m);
     }
   },
   totalDependencies: 0,
@@ -206,11 +224,11 @@ window.showElement = showElement;
 Module.setStatus("Downloading...");
 
 function startXash() {
-  // showElement("loader1", false);
-  // showElement("optionsTitle", false);
-  // showElement("fSettings", false);
   setupFS();
-  Module.arguments = ["-height 720", "-width 1920"]; //document.getElementById("iArgs").value.split(" ");
+  Module.arguments = [
+    `-height ${window.innerHeight}`,
+    `-width ${window.innerWidth}`,
+  ]; //document.getElementById("iArgs").value.split(" ");
   Module.run = run = savedRun;
   if (radioChecked("Zip"))
     fetchZIP(
@@ -392,30 +410,9 @@ document.body.appendChild(script);
 </script>
 
 <style scoped lang="scss">
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.start {
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 </style>
