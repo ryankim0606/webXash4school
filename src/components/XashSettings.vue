@@ -4,6 +4,7 @@
       <XashGames />
       <XashLaunchOptions />
       <XashStart />
+      <Attribution />
     </div>
     <XashLoading v-if="loading" />
   </div>
@@ -16,6 +17,7 @@ import XashLoading from "@/components/XashLoading.vue";
 import { useXashStore } from "@/stores/store";
 import { storeToRefs } from "pinia";
 import XashLaunchOptions from "@/components/XashLaunchOptions.vue";
+import Attribution from "@/components/Attribution.vue";
 const store = useXashStore();
 const { loading } = storeToRefs(store);
 </script>

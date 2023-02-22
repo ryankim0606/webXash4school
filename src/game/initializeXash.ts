@@ -12,23 +12,37 @@ interface XashModule {
 const GAME_DIR = "valve";
 const XASH_MAIN_SCRIPT = "xash.js";
 const DEFAULT_MEM = 150;
+const DEFAULT_LAUNCH_PARAMS = [
+  "-height",
+  `${window.innerHeight}`,
+  "-width",
+  `${window.innerWidth}`,
+  "+hud_scale",
+  "2.5",
+];
 let MEMORY_INITIALIZER = "xash.html.mem";
 const canvas = document.getElementById("canvas") || null;
 let lastErrorDate = new Date();
 let moduleCount = 0;
 let savedRun!: () => any;
 
+const setLoadingClass = () => {
+  if (canvas) canvas.className += " " + "loading";
+};
+
 let Module: XashModule = {
   TOTAL_MEMORY: DEFAULT_MEM * 1024 * 1024,
   preRun: [],
   postRun: [],
-  print: (text: any) => console.log(text),
+  print: (text: any) => {
+    if (text === "exit(0)") window.location.reload();
+    console.info(text);
+  },
   printErr: (text: any) => console.error(text?.toString?.()),
   canvas: (() => {
     // As a default initial behavior, pop up an alert when webgl context is lost. To make your
     // application robust, you may want to override this behavior before shipping!
     // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
-    // TODO: add this
     canvas?.addEventListener(
       "webglcontextlost",
       function (e) {
@@ -153,7 +167,6 @@ const setupFS = () => {
 //       let total = size;
 //       let loaded = event.loaded;
 //       let num = 0;
-//       console.log(loaded + "/" + total);
 //     } else if (!Module.dataFileDownloads) {
 //       if (Module["setStatus"]) Module["setStatus"]("Downloading data...");
 //     }
@@ -184,7 +197,6 @@ const getScript = (scriptName: string, callback: () => any) => {
 
   // report progress events
   req.onprogress = (event) => {
-    console.log((event.loaded / event.total) * 100);
     if (event.lengthComputable) {
       xashStore.loadingProgress = (event.loaded / event.total) * 100;
       // ...
@@ -197,7 +209,6 @@ const getScript = (scriptName: string, callback: () => any) => {
   req.onload = () => {
     const script = document.createElement("script");
     script.onload = () => {
-      console.log("finishedDownloadingScript, starting");
       callback();
     };
     document.body.appendChild(script);
@@ -209,16 +220,11 @@ const getScript = (scriptName: string, callback: () => any) => {
 };
 
 const startXash = () => {
+  setLoadingClass();
   const xashStore = useXashStore();
   const launchArguments = xashStore.launchOptions?.split(" ");
   setupFS();
-  Module.arguments = [
-    `-height`,
-    `${window.innerHeight}`,
-    `-width`,
-    `${window.innerWidth}`,
-    ...launchArguments,
-  ];
+  Module.arguments = [...DEFAULT_LAUNCH_PARAMS, ...launchArguments];
   Module.run = window.run = savedRun;
 
   // TODO: Get newer browserFS working with this.
@@ -238,6 +244,9 @@ const startXash = () => {
   });
 };
 
+// By default, xash wants to run immediately as xash.js is loaded,
+// so we overwrite window.run in order to prevent it from starting
+// automatically, then reapply it later on the window, very hacky!
 const skipRun = () => {
   savedRun = window.run;
   window.run = haltRun;

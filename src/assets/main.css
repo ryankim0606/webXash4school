@@ -1,5 +1,5 @@
-@import './base.css';
-@import './blacksteam/blacksteam.css';
+@import "./base.css";
+@import "./blacksteam/blacksteam.css";
 
 main {
   position: relative;
@@ -11,7 +11,8 @@ main {
   z-index: 10;
 }
 
-canvas, #app {
+canvas,
+#app {
   position: absolute;
   top: 0;
   left: 0;
@@ -23,6 +24,11 @@ canvas {
   left: 0;
   width: 100vw;
   height: 100vh;
+  background-image: url("./hl.svg");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-
+canvas.loading {
+  background-image: url("./hl-spin.svg");
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="window" name="Games">
+  <div class="window" name="Start">
     <div class="box">
       <button class="start-button" @click="start" :disabled="!selectedGame">
         Start
