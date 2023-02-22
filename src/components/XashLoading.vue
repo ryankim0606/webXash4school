@@ -1,6 +1,9 @@
 <template>
   <div class="half window xash-loading" name="Loading">
-    <progress :value="loadingProgress" max="100" />
+    <div class="xash-loading__container">
+      {{ loadingProgress }}%
+      <progress :value="loadingProgress" max="100" />
+    </div>
   </div>
 </template>
 
@@ -11,4 +14,12 @@ const store = useXashStore();
 const { loadingProgress } = storeToRefs(store);
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.xash-loading {
+  &__container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+}
+</style>

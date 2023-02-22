@@ -25,6 +25,7 @@ const canvas = document.getElementById("canvas") || null;
 let lastErrorDate = new Date();
 let moduleCount = 0;
 let savedRun!: () => any;
+let store: any = null;
 
 const setLoadingClass = () => {
   if (canvas) canvas.className += " " + "loading";
@@ -63,6 +64,13 @@ let Module: XashModule = {
       Module.print();
     }
     console.info(text);
+    let m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+
+    if (m) {
+      let progress = Math.round((parseInt(m[2]) * 100) / parseInt(m[4]));
+      setDownloadStatusFromScript(progress);
+    }
+    if (text === 'Running...' && store) store.showXashSettingUI = false
   },
   totalDependencies: 0,
   monitorRunDependencies: function (left) {
@@ -76,6 +84,13 @@ let Module: XashModule = {
           ")"
       );
   },
+};
+
+const setDownloadStatusFromScript = (number: number) => {
+  if (!store) store = useXashStore();
+  store.loading = true
+  store.showXashSettingUI = true
+  store.loadingProgress = number;
 };
 
 const loadModule = (name) => {
