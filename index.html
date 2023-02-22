@@ -7,13 +7,15 @@
     <title>Vite App</title>
   </head>
   <body>
-    <canvas
-      ref="canvas"
-      class="emscripten"
-      id="canvas"
-      oncontextmenu="event.preventDefault()"
-    ></canvas>
-    <div id="app"></div>
+    <main>
+      <div id="app"></div>
+      <canvas
+        ref="canvas"
+        class="emscripten"
+        id="canvas"
+        oncontextmenu="event.preventDefault()"
+      ></canvas>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
