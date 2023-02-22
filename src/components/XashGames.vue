@@ -4,8 +4,9 @@
       <p
         v-for="game in gameList"
         class="menu-item"
+        :class="{ 'menu-item--selected': selectedGame === game.packageName }"
         :key="game.name"
-        @click="startXash(game.packageName)"
+        @click="selectedGame = game.packageName"
       >
         {{ game.name }}
       </p>
@@ -16,10 +17,11 @@
 <script setup>
 import gameList from "@/config/games";
 import { useXashStore } from "@/stores/store";
+import { storeToRefs } from "pinia";
 
 const store = useXashStore();
 
-const { startXash } = store;
+const { selectedGame } = storeToRefs(store);
 </script>
 
 <style scoped lang="scss"></style>

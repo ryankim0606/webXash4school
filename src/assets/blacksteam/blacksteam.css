@@ -68,6 +68,9 @@ input[type="color"],
   text-align: left;
   -webkit-font-smoothing: none;
 }
+button:disabled {
+  filter: brightness(0.5);
+}
 button:active,
 input[type="button"]:active,
 input[type="reset"]:active,
@@ -607,7 +610,8 @@ p.menu-item {
   padding: 4px;
   margin: 0;
 }
-p.menu-item:hover {
+p.menu-item:hover,
+p.menu-item--selected {
   background-color: #96892d;
   user-select: none;
   cursor: pointer;

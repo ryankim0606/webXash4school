@@ -1,28 +1,24 @@
 <template>
-  <XashSettings />
-  <button class="start" @click="start">start</button>
+  <XashSettings v-if="showXashSettingUI" />
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref } from "vue";
-import BrowserFS from "browserfs";
-import initializeXash from "@/game/initializeXash";
+import { onMounted, ref } from "vue";
+import { initializeXash } from "@/game/initializeXash";
 import XashSettings from "@/components/XashSettings.vue";
+import { useXashStore } from "@/stores/store";
+
+import { storeToRefs } from "pinia";
+const store = useXashStore();
+const { showXashSettingUI } = storeToRefs(store);
 
 const start = () => {
   initializeXash();
 };
 
-// TODO: Resize window, maybe try these?
-// Module["_SDL_OnWindowResized"]
-// Module["_Emscripten_HandleCanvasResize"]
-// Browser.resizeCanvas
-// Module["_SDL_OnWindowResized"]
-//
-
-// onBeforeMount(() => {
-//
-// });
+onMounted(() => {
+  initializeXash();
+});
 </script>
 
 <style scoped lang="scss">
