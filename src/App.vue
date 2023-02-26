@@ -3,21 +3,22 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { initializeXash } from "@/game/initializeXash";
+import { onMounted } from "vue";
 import XashSettings from "@/components/XashSettings.vue";
 import { useXashStore } from "@/stores/store";
+import { init } from "../hl-engine-js/lib/hl-engine.js";
 
 import { storeToRefs } from "pinia";
 const store = useXashStore();
 const { showXashSettingUI } = storeToRefs(store);
-
-const start = () => {
-  initializeXash();
-};
+const { setStatus } = store;
 
 onMounted(() => {
-  initializeXash();
+  init({
+    canvas: document.getElementById("canvas") || null,
+    location: "",
+    setStatus: setStatus,
+  });
 });
 </script>
 

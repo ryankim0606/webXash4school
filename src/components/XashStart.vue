@@ -9,14 +9,15 @@
 </template>
 
 <script setup>
-import { startXash } from "@/game/initializeXash";
 import { useXashStore } from "@/stores/store";
 import { storeToRefs } from "pinia";
 const store = useXashStore();
 const { selectedGame } = storeToRefs(store);
+const { downloadZip, startXash } = store;
 
-const start = () => {
-  startXash();
+const start = async () => {
+  const zip = await downloadZip(selectedGame);
+  await startXash(zip);
 };
 </script>
 

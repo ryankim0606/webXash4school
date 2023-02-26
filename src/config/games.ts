@@ -1,15 +1,19 @@
 const gameList = [
   {
     name: "HLDM (85M)",
-    packageName: "hldm.js",
+    packageName: "hldm.zip",
   },
   {
     name: "Hazard Course (33M)",
-    packageName: "hc.js",
+    packageName: "hc.zip",
   },
   {
     name: "Uplink (45M)",
-    packageName: "uplink.js",
+    packageName: "uplink.zip",
+  },
+  {
+    name: "Day One (78M)",
+    packageName: "dayone.zip",
   },
 ];
 

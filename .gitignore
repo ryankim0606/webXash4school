@@ -26,3 +26,12 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# wasm stuff
+/public/xash.html.mem
+/public/client.js
+/public/menu.js
+/public/xash.js
+/public/server.js
+/public/browserfs.min.js
+/public/hl-engine.js
