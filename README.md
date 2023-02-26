@@ -8,6 +8,8 @@ emscripten port by mittorn [https://github.com/FWGS/xash3d/blob/master/ports/REA
 
 Assets from [https://github.com/iCrazyBlaze/Xash3D-Emscripten]()
 
+UI CSS from vgui.css [https://github.com/xVenti/vgui.css/](https://github.com/xVenti/vgui.css/)
+
 ### Improvements
 - Better resolution support with resizable window (wip)
 - Proper HUD scaling
