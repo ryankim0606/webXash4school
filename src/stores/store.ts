@@ -48,8 +48,6 @@ export const useXashStore = defineStore("xash", () => {
     console.info(text);
   };
 
-  console.log(DEFAULT_ARGS);
-
   const startXash = async (zip: ArrayBuffer) => {
     const params = {
       mod: selectedGame.value?.split?.(".")?.[0],

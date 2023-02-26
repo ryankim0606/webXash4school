@@ -11,11 +11,13 @@
 <script setup>
 import { useXashStore } from "@/stores/store";
 import { storeToRefs } from "pinia";
+import setCanvasLoading from "@/utils/setCanvasLoading";
 const store = useXashStore();
 const { selectedGame } = storeToRefs(store);
 const { downloadZip, startXash } = store;
 
 const start = async () => {
+  setCanvasLoading();
   const zip = await downloadZip(selectedGame);
   await startXash(zip);
 };

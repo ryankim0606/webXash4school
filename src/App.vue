@@ -16,7 +16,7 @@ const { setStatus } = store;
 onMounted(() => {
   init({
     canvas: document.getElementById("canvas") || null,
-    location: "",
+    location: import.meta.env.DEV ? "" : "/webXash",
     setStatus: setStatus,
   });
 });
