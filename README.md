@@ -17,9 +17,7 @@ UI CSS from vgui.css [https://github.com/xVenti/vgui.css/](https://github.com/xV
 
 ### Todo:
 - Rewrite to be compatible with newer BrowserFS versions. 
-- Add filesystem access to load assets from a local game.
 - Better mouse pointer translation for UI
-- Finish Typescript stuff
 
 ## Project Setup
 
