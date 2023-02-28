@@ -48,16 +48,14 @@ export const useXashStore = defineStore("xash", () => {
     console.info(text);
   };
 
-  const startXash = async (zip: ArrayBuffer) => {
+  const startXash = (zip: ArrayBuffer) => {
     const params = {
       mod: selectedGame.value?.split?.(".")?.[0],
       map: null,
       filesystem: "RAM",
       fullscreen: false,
-      zip,
+      zip: zip,
       args: [...DEFAULT_ARGS, ...launchOptions.value.split(" ")],
-      // zipValve: '',
-      // zipMod: '',
     };
     start(params);
     loading.value = false;
