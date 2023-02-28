@@ -8,8 +8,8 @@
   </div>
 </template>
 
-<script setup>
-import { useXashStore } from "@/stores/store";
+<script setup lang="ts">
+import gs useXashStore } from "@/stores/store";
 import { storeToRefs } from "pinia";
 import setCanvasLoading from "@/utils/setCanvasLoading";
 const store = useXashStore();
