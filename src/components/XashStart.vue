@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import gs useXashStore } from "@/stores/store";
+import { useXashStore } from "@/stores/store";
 import { storeToRefs } from "pinia";
 import setCanvasLoading from "@/utils/setCanvasLoading";
 const store = useXashStore();
@@ -18,7 +18,11 @@ const { downloadZip, startXash } = store;
 
 const start = async () => {
   setCanvasLoading();
-  const zip = await downloadZip(selectedGame);
+  const zip = await downloadZip();
+  if (!zip) {
+    alert("Selected game could not be loaded!");
+    return;
+  }
   await startXash(zip);
 };
 </script>
