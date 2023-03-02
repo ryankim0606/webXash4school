@@ -1,6 +1,17 @@
 <template>
   <div class="window" name="Start">
     <div class="box">
+      <div class="options">
+        <label for="fullscreen">
+          <input
+            v-model="fullScreen"
+            id="fullscreen"
+            name="fullscreen"
+            type="checkbox"
+          />
+          Fullscreen
+        </label>
+      </div>
       <button class="start-button" @click="start" :disabled="!selectedGame">
         Start
       </button>
@@ -12,8 +23,9 @@
 import { useXashStore } from "@/stores/store";
 import { storeToRefs } from "pinia";
 import setCanvasLoading from "@/utils/setCanvasLoading";
+
 const store = useXashStore();
-const { selectedGame } = storeToRefs(store);
+const { selectedGame, fullScreen } = storeToRefs(store);
 const { downloadZip, startXash } = store;
 
 const start = async () => {
@@ -31,5 +43,12 @@ const start = async () => {
 .start-button {
   text-align: center;
   width: 100%;
+}
+
+.options {
+  margin-bottom: 16px;
+  label {
+    cursor: pointer;
+  }
 }
 </style>
