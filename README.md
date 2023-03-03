@@ -8,9 +8,9 @@ WIP slightly Improved version of xash3d emscripten in the browser, written in Vu
 
 emscripten port by mittorn [https://github.com/FWGS/xash3d/blob/master/ports/README.emscripten.md](https://github.com/FWGS/xash3d/blob/master/ports/README.emscripten.md)
 
-Assets from [https://github.com/iCrazyBlaze/Xash3D-Emscripten]()
+Assets from [hl-engine-js](https://github.com/steren/hl-engine-js)
 
-UI CSS from vgui.css [https://github.com/xVenti/vgui.css/](https://github.com/xVenti/vgui.css/)
+UI CSS from [vgui.css](https://github.com/xVenti/vgui.css/)
 
 ### Improvements
 - Better resolution support with resizable window (wip)
