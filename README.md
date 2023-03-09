@@ -23,8 +23,15 @@ UI CSS from [vgui.css](https://github.com/xVenti/vgui.css/)
 
 ## Project Setup
 
+### Install dependancies
+
 ```sh
 pnpm install
+```
+
+### Pull in submodules
+```sh
+git submodule update --init
 ```
 
 ### Compile and Hot-Reload for Development
