@@ -21,6 +21,23 @@ UI CSS from [vgui.css](https://github.com/xVenti/vgui.css/)
 - Rewrite to be compatible with newer BrowserFS versions. 
 - Better mouse pointer translation for UI
 
+## Running mods
+
+If your mod works with xash3D then it should work with this. I'll use Counter-Strike 1.6 as an example.
+
+1. Create a zip containing your mod's main game folder and the 'valve' folder containing the base HL1 games files, the zip's structure should look like this.
+```bash
+cstrike.zip/
+    ├── cstrike
+    └── valve
+```
+2. In webXash, in the launch options dialogue, enter the paramter `-game <mod folder name>`, so in this example it would `-game cstrike`
+3. Click on Open zip button, select the mod's zip file you just created and the game should start to load the mod automatically.
+
+### Limitations
+
+The branch of xash3D that webXash uses is out of date and may not support mods that require custom DLLs.
+
 ## Project Setup
 
 ### Install dependancies
